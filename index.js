@@ -3,7 +3,11 @@ const express = require("express");
 require("dotenv").config();
 
 const routers = require("./router/index");
+const connectDatabase = require("./helpers/database/connectDatabase");
+
 const PORT = 4000 || process.env.PORT;
+
+connectDatabase();
 
 const app = express();
 
