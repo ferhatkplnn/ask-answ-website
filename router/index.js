@@ -4,7 +4,7 @@ const questions = require("./question");
 
 router.use("/questions", questions);
 router.use("/auth", auth);
-router.use("/", (req, res, next) => {
+router.get("/", (req, res, next) => {
     res.render("index");
 });
 
