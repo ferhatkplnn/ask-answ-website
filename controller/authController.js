@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const sendJwtToClient = require("../helpers/authorization/tokenHelpers");
 
 const postRegister = async (req, res, next) => {
     try {
@@ -11,8 +12,11 @@ const postRegister = async (req, res, next) => {
             password,
         });
 
+        sendJwtToClient(user, res);
+
         const token = user.generateJwtFromUser();
         console.log(token);
+
         res.status(200).json({
             success: true,
         });
