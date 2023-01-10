@@ -10,6 +10,9 @@ const postRegister = async (req, res, next) => {
             email,
             password,
         });
+
+        const token = user.generateJwtFromUser();
+        console.log(token);
         res.status(200).json({
             success: true,
         });
