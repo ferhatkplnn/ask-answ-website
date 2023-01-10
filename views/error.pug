@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Document
+        include layouts/css.pug
+
+    body
+        .d-flex.justify-content-center.align-items-center(style="height:100vh")
+            .text-center
+                h1.display-4.text-danger Error!
+                if customError
+                    p.lead Something is wrong!
+                else
+                    p.lead You are not authorized to access this page.
+                a.btn.btn-primary(href="/" role="button") Home
+
+
+        include layouts/scripts.pug

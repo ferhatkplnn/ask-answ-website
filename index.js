@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const routers = require("./router/index");
 const connectDatabase = require("./helpers/database/connectDatabase");
+const customErrorHandller = require("./middlewares/errors/customErrorHandler");
 
 const PORT = 4000 || process.env.PORT;
 
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routers);
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(customErrorHandller);
 
 app.listen(PORT, () => {
     console.log(`App started on http://localhost:${PORT}`);

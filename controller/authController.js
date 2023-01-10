@@ -19,9 +19,7 @@ const postRegister = async (req, res, next) => {
                 mailError: "This email address is already in use.",
             });
         } else {
-            res.render("register", {
-                mailError: "Something is wrong",
-            });
+            return next(error);
         }
     }
 };
