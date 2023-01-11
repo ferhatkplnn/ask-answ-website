@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 require("dotenv").config();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const routers = require("./router/index");
 const connectDatabase = require("./helpers/database/connectDatabase");
@@ -17,7 +18,7 @@ app.set("view engine", "pug");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 app.use("/", routers);
 
 app.use(express.static(path.join(__dirname, "public")));

@@ -1,7 +1,10 @@
 const CustomError = require("../../helpers/error/CustomError");
 
 const customErrorHandler = (err, req, res, next) => {
-    console.log(err);
+    if (process.env.NODE_ENV === "development") {
+        console.log(err);
+    }
+
     let customError = err;
 
     if (err.name === "SyntaxError") {
@@ -19,9 +22,11 @@ const customErrorHandler = (err, req, res, next) => {
         );
     }
 
-    res.status(customError.status || 500).render("error", {
-        customError,
-    });
+    res.locals.message = customError.message;
+    res.locals.error = process.env.NODE_ENV === "development" ? err : {};
+
+    res.status(customError.status || 500);
+    res.render("error");
 };
 
 module.exports = customErrorHandler;

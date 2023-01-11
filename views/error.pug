@@ -11,10 +11,8 @@ html(lang="en")
         .d-flex.justify-content-center.align-items-center(style="height:100vh")
             .text-center
                 h1.display-4.text-danger Error!
-                if customError
-                    p.lead Something is wrong!
-                else
-                    p.lead You are not authorized to access this page.
+                if message
+                    p.lead=message
                 a.btn.btn-primary(href="/" role="button") Home
 
 

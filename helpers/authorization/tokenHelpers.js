@@ -10,4 +10,16 @@ const sendJwtToClient = (user, res) => {
     });
 };
 
-module.exports = sendJwtToClient;
+const isTokenIncluded = (req) => {
+    return typeof req.cookies.access_token !== "undefined";
+};
+
+const getAcessTokenFromCookie = (req) => {
+    return req.cookies.access_token;
+};
+
+module.exports = {
+    sendJwtToClient,
+    isTokenIncluded,
+    getAcessTokenFromCookie,
+};

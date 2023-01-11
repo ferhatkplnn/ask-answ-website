@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const sendJwtToClient = require("../helpers/authorization/tokenHelpers");
+const { sendJwtToClient } = require("../helpers/authorization/tokenHelpers");
 
 const postRegister = async (req, res, next) => {
     try {
