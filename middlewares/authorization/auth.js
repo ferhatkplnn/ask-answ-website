@@ -25,9 +25,37 @@ const getAccessToRoute = (req, res, next) => {
             );
         }
 
+        req.user = {
+            id: decoded.id,
+            name: decoded.name,
+        };
+
         console.log(decoded);
         next();
     });
 };
 
-module.exports = { getAccessToRoute };
+const getUserSessionInfo = (req, res, next) => {
+    if (!isTokenIncluded) {
+        return next();
+    }
+
+    const { JWT_SECRET_KEY } = process.env;
+    const accessToken = getAcessTokenFromCookie(req);
+
+    jwt.verify(accessToken, JWT_SECRET_KEY, (err, decoded) => {
+        if (err) {
+            return next();
+        }
+
+        res.locals.userSession = {
+            id: decoded.id,
+            name: decoded.name,
+        };
+
+        console.log(decoded);
+        next();
+    });
+};
+
+module.exports = { getAccessToRoute, getUserSessionInfo };
