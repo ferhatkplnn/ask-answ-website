@@ -17,7 +17,7 @@ nav.p-3.text-bg-dark
                 input.form-control.form-control-dark.text-bg-dark(type="search" placeholder="Search..." aria-label="Search")
             if !userSession
                 .text-end
-                    button.btn.btn-outline-light.me-2(type="button") Login
+                    a.btn.btn-outline-light.me-2(type="button" href="/auth/login") Login
                     button.btn.btn-warning(type="button") Sign-up
             else
                 .text-end
