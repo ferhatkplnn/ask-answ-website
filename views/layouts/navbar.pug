@@ -4,7 +4,7 @@ nav.p-3.text-bg-dark
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
             ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
                 li
-                    a.nav-link.px-2.text-secondary(href="#") Home
+                    a.nav-link.px-2.text-secondary(href="/") Home
                 li
                     a.nav-link.px-2.text-white(href="#") Features
                 li
@@ -21,4 +21,4 @@ nav.p-3.text-bg-dark
                     button.btn.btn-warning(type="button") Sign-up
             else
                 .text-end
-                    button.btn.btn-danger(type="button") Log out
+                    a.btn.btn-danger(type="button" href="/auth/logout") Log out

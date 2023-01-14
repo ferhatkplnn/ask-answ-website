@@ -21,9 +21,7 @@ const postRegister = async (req, res, next) => {
         const token = user.generateJwtFromUser();
         console.log(token);
 
-        res.status(200).json({
-            success: true,
-        });
+        res.redirect("/");
     } catch (error) {
         if (error.code === 11000) {
             res.render("register", {
@@ -72,13 +70,19 @@ const login = asyncErrorWrapper(async (req, res, next) => {
     });
 });
 
-const renderLoginPage = async (req, res, next) => {
+const renderLoginPage = async (res) => {
     res.render("login");
 };
+
+const logout = asyncErrorWrapper(async (res) => {
+    const { NODE_ENV } = process.env;
+    return res.status(200).clearCookie("access_token").redirect("/");
+});
 
 module.exports = {
     postRegister,
     getRegister,
     login,
     renderLoginPage,
+    logout,
 };

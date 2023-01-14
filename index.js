@@ -8,7 +8,7 @@ const routers = require("./router/index");
 const connectDatabase = require("./helpers/database/connectDatabase");
 const customErrorHandller = require("./middlewares/errors/customErrorHandler");
 
-const PORT = 4000 || process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 connectDatabase();
 const app = express();
