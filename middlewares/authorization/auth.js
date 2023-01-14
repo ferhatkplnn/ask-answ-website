@@ -17,12 +17,7 @@ const getAccessToRoute = (req, res, next) => {
 
     jwt.verify(accessToken, JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
-            return next(
-                new CustomError(
-                    "You are not authorization to access this route.",
-                    401
-                )
-            );
+            return next(new CustomError("You are not authorization.", 401));
         }
 
         req.user = {

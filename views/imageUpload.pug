@@ -1,0 +1,11 @@
+extends layouts/layout.pug
+
+block content
+    div.text-center.container-fluid(style="min-height: 400px")
+        main.col-sm-6.col-md-4.col-12.m-auto.my-5
+            form(action="/auth/upload" method="POST" enctype="multipart/form-data")
+                h1.h3.mb-5.fw-normal Image Upload
+                .input-group.mb-3
+                    input#imageUpload.form-control(type="file" name="profile_image")
+                button.w-100.btn.btn-lg.btn-primary(type="submit") Upload Image
+
