@@ -4,21 +4,15 @@ nav.p-3.text-bg-dark
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
             ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
                 li
-                    a.nav-link.px-2.text-secondary(href="/") Home
+                    a.nav-link.px-2.text-white(href="/") Home
                 li
-                    a.nav-link.px-2.text-white(href="#") Features
-                li
-                    a.nav-link.px-2.text-white(href="#") Pricing
-                li
-                    a.nav-link.px-2.text-white(href="#") FAQs
-                li
-                    a.nav-link.px-2.text-white(href="#") About
+                    a.nav-link.px-2.text-white(href="/questions") Questions
             form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3(role="search")
                 input.form-control.form-control-dark.text-bg-dark(type="search" placeholder="Search..." aria-label="Search")
             if !userSession
                 .text-end
                     a.btn.btn-outline-light.me-2(type="button" href="/auth/login") Login
-                    button.btn.btn-warning(type="button") Sign-up
+                    a.btn.btn-warning(type="button" href="/auth/register") Sign-up
             else
                 .text-end
                     a.btn.btn-danger(type="button" href="/auth/logout") Log out

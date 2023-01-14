@@ -70,12 +70,11 @@ const login = asyncErrorWrapper(async (req, res, next) => {
     });
 });
 
-const renderLoginPage = async (res) => {
+const renderLoginPage = async (req, res, next) => {
     res.render("login");
 };
 
-const logout = asyncErrorWrapper(async (res) => {
-    const { NODE_ENV } = process.env;
+const logout = asyncErrorWrapper(async (req, res, next) => {
     return res.status(200).clearCookie("access_token").redirect("/");
 });
 
