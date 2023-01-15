@@ -4,6 +4,7 @@ const User = require("../models/user");
 const { sendJwtToClient } = require("../helpers/authorization/tokenHelpers");
 const { validateUserInput } = require("../helpers/input/inputHelpers");
 const { comparePassword } = require("../helpers/input/inputHelpers");
+const CustomError = require("../helpers/error/CustomError");
 
 const postRegister = async (req, res, next) => {
     try {
@@ -33,9 +34,9 @@ const postRegister = async (req, res, next) => {
     }
 };
 
-const getRegister = async (req, res, next) => {
+const getRegister = asyncErrorWrapper(async (req, res, next) => {
     res.render("register");
-};
+});
 
 const login = asyncErrorWrapper(async (req, res, next) => {
     const { email, password } = req.body;
@@ -70,9 +71,9 @@ const login = asyncErrorWrapper(async (req, res, next) => {
     });
 });
 
-const renderLoginPage = async (req, res, next) => {
+const renderLoginPage = asyncErrorWrapper(async (req, res, next) => {
     res.render("login");
-};
+});
 
 const logout = asyncErrorWrapper(async (req, res, next) => {
     return res.status(200).clearCookie("access_token").redirect("/");
@@ -96,6 +97,32 @@ const imageUpload = asyncErrorWrapper(async (req, res, next) => {
     });
 });
 
+const forgotPassword = asyncErrorWrapper(async (req, res, next) => {
+    const resetEmail = req.body.email;
+
+    const user = await User.findOne({ email: resetEmail }).select("+password");
+
+    if (!user) {
+        res.status(400).render("forgotPassword", {
+            mailError: "There is no use with that e-mail.",
+        });
+        return next();
+    }
+
+    const resetPasswordToken = user.getResetPasswordTokenFromUser();
+
+    await user.save();
+
+    res.json({
+        success: true,
+        message: "Token Sent To Your Email",
+    });
+});
+
+const renderForgotPasswordPage = asyncErrorWrapper(async (req, res, next) => {
+    res.render("forgotPassword");
+});
+
 module.exports = {
     postRegister,
     getRegister,
@@ -103,4 +130,6 @@ module.exports = {
     renderLoginPage,
     logout,
     imageUpload,
+    forgotPassword,
+    renderForgotPasswordPage,
 };

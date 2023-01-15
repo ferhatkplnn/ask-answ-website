@@ -7,6 +7,8 @@ const {
     renderLoginPage,
     logout,
     imageUpload,
+    forgotPassword,
+    renderForgotPasswordPage,
 } = require("../controller/authController");
 const profileImageUpload = require("../middlewares/libraries/profileImageUpload");
 const { getAccessToRoute } = require("../middlewares/authorization/auth");
@@ -16,6 +18,8 @@ router.get("/register", getRegister);
 router.post("/login", login);
 router.get("/login", renderLoginPage);
 router.get("/logout", logout);
+router.post("/forgotpassword", forgotPassword);
+router.get("/forgotpassword", renderForgotPasswordPage);
 
 router.post(
     "/upload",

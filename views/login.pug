@@ -20,9 +20,6 @@ block content
                 .form-floating
                     input#passwod.form-control(type="password" placeholder="Password" name="password" minlength="6" maxlength="20" required)
                     label(for="password") Password
-                .checkbox.mb-3
-                    label
-                        input(type="checkbox" value="remember-me")
-                        | Remember me
+                    a.btn.btn-link.float-start(href="/auth/forgotpassword") Fortog your password?
                 button.w-100.btn.btn-lg.btn-primary(type="submit") Log in
 
