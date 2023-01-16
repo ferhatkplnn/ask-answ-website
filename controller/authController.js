@@ -56,6 +56,7 @@ const login = asyncErrorWrapper(async (req, res, next) => {
         res.render("login", {
             mailError: "Please check your e-mail address.",
         });
+        return next();
     }
 
     //check password
@@ -63,6 +64,7 @@ const login = asyncErrorWrapper(async (req, res, next) => {
         res.render("login", {
             passwordError: "Please check your password.",
         });
+        return next();
     }
 
     sendJwtToClient(user, res);
@@ -152,6 +154,43 @@ const renderForgotPasswordPage = asyncErrorWrapper(async (req, res, next) => {
     res.render("forgotPassword");
 });
 
+const resetPassword = asyncErrorWrapper(async (req, res, next) => {
+    const { resetPasswordToken } = req.query;
+    const { password } = req.body;
+    console.log("hello");
+
+    if (!resetPasswordToken) {
+        return next(new CustomError("Please provide a valid token", 400));
+    }
+
+    let user = await User.findOne({
+        resetPasswordToken: resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+        return next(new CustomError("Invalid Token or Session Expired", 400));
+    }
+
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "Reset password Process Successful",
+    });
+});
+
+const renderResetPasswordPage = asyncErrorWrapper(async (req, res, next) => {
+    console.log(req.query.resetPasswordToken);
+    res.render("resetPassword", {
+        resetPasswordToken: req.query.resetPasswordToken,
+    });
+});
+
 module.exports = {
     postRegister,
     getRegister,
@@ -161,4 +200,6 @@ module.exports = {
     imageUpload,
     forgotPassword,
     renderForgotPasswordPage,
+    resetPassword,
+    renderResetPasswordPage,
 };
