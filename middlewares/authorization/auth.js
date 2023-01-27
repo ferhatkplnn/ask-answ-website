@@ -4,6 +4,8 @@ const {
     isTokenIncluded,
     getAcessTokenFromCookie,
 } = require("../../helpers/authorization/tokenHelpers");
+const asyncErrorWrapper = require("express-async-handler");
+const User = require("../../models/user");
 
 const getAccessToRoute = (req, res, next) => {
     if (!isTokenIncluded(req)) {
@@ -53,4 +55,15 @@ const getUserSessionInfo = (req, res, next) => {
     });
 };
 
-module.exports = { getAccessToRoute, getUserSessionInfo };
+const getAdminAccess = asyncErrorWrapper(async (req, res, next) => {
+    const { id } = req.user;
+
+    const user = await User.findByid(id);
+
+    if (user.role !== "admin") {
+        return next(new CustomError("Only admins can access this route", 403));
+    }
+    next();
+});
+
+module.exports = { getAccessToRoute, getUserSessionInfo, getAdminAccess };
