@@ -14,3 +14,5 @@ router.get("/", (req, res, next) => {
         message: "Admin Page",
     });
 });
+
+module.exports = router;
