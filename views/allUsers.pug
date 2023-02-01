@@ -1,0 +1,26 @@
+extends layouts/layout.pug
+
+block content
+    .container
+        each user in users
+            #accordionExample.accordion
+                .accordion-item
+                    h2#headingOne.accordion-header
+                        button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target=`#${user._id}` aria-expanded="true" aria-controls="asdfsadf")
+                            | !{user.email}
+                    .accordion-collapse.collapse(id=user._id)
+                        .accordion-body
+                            span Name: !{user.name}
+                            br
+                            span Email: !{user.email}
+                            br
+                            span Role: !{user.role}
+                            br
+                            span Profile image: !{user.profile_image}
+                            br
+                            span Blocked: !{user.blocked}
+                            br
+                            span Created At: !{user.createdAt}
+                            br
+                            button Delete
+                            button Block or Unblock
